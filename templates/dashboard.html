@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+<h2>Welcome {{session['user']}}</h2>
+
+<form action="/add" method="post">
+  <input name="task" placeholder="Enter Task" required>
+  <button>Add Task</button>
+</form>
+
+<ul>
+  {% for task in tasks %}
+    <li>
+      {{ task[1] }}
+      <a href="/delete/{{task[0]}}">Delete</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="/logout">Logout</a>
