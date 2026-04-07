@@ -85,5 +85,21 @@ def delete(index):
 
     return redirect('/dashboard')
 
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit_task(id):
+    db = get_db()
+
+    task = db.execute("SELECT * FROM tasks WHERE id=?", (id,)).fetchone()
+
+    if task is None:
+        return "Task not found ❌"
+
+    if request.method == 'POST':
+        new_task = request.form['task']
+        db.execute("UPDATE tasks SET task=? WHERE id=?", (new_task, id))
+        db.commit()
+        return redirect("/")
+
+    return render_template("edit.html", task=task[1])
 if __name__ == "__main__":
     app.run(debug=True)
