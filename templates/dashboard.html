@@ -10,10 +10,10 @@
 
 <ul>
   {% for task in tasks %}
-    <li>
-      {{ task[1] }}
-      <a href="/delete/{{task[0]}}">Delete</a>
-    </li>
+    <p>
+        {{ task }}
+        <a href="/delete/{{ loop.index0 }}">Delete</a>
+    </p>
   {% endfor %}
 </ul>
 

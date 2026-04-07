@@ -75,5 +75,15 @@ def logout():
     session.pop("user", None)
     return redirect("/login")
 
+@app.route('/delete/<int:index>')
+def delete(index):
+    tasks = session.get('tasks', [])
+    
+    if 0 <= index < len(tasks):
+        tasks.pop(index)
+        session['tasks'] = tasks
+
+    return redirect('/dashboard')
+
 if __name__ == "__main__":
     app.run(debug=True)
